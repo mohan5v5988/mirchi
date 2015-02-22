@@ -34,17 +34,14 @@ public class ConnectionProvider {
 		try {
 			Connection connection = getConnection();
 			Statement stmt = connection.createStatement();
-			//stmt.executeUpdate("INSERT INTO GOODS(THING) VALUES('My cool Item');");
-			ResultSet rs = stmt.executeQuery("SELECT title FROM SONGS");
-			//ResultSet rsa = stmt.executeQuery("SELECT artist FROM SONGS");
-			//ResultSet rsid = stmt.executeQuery("SELECT id FROM SONGS");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM CUSTOMER");
 			while (rs.next()) {
-				System.out.println("title: " + rs.getString("title"));
+				System.out.println("nid: " + rs.getString("nid") + ".  NAME: "+rs.getString("name"));
 			}
-			System.out.println("hi");
-			while (rs.next()) {
-				System.out.println("title: " + rs.getString("title"));
-			}
+//			ResultSet rs = stmt.executeQuery("SELECT * FROM TYPE");
+//			while(rs.next()) {
+//				System.out.println("TYPE: "+rs.getString("type")+". RATE: "+rs.getDouble("rate"));
+//			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
