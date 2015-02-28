@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -19,10 +20,12 @@ import util.Constants;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import command.customer.UpdateCustomerCommand;
 import command.customer.GetCustomerByIDCommand;
 import command.customer.GetCustomerByNameCommand;
 import command.customer.ListCustomerCommand;
 import command.customer.CreateCustomerCommand;
+import command.customer.DeleteCustomerCommand;
 import model.Customer;
 
 
@@ -58,9 +61,9 @@ public class CustomerServices {
 		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getSong(@DefaultValue("nothing") @QueryParam("nid") String nid,
 								@DefaultValue("nothing") @QueryParam("name") String name) {
-			if(nid == "nothing" && name == "Nothing") {
+			if(nid.equals("nothing") && name.equals("nothing")) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
-			} else if(name == "nothing") {
+			} else if(name.equals("nothing")) {
 				GetCustomerByIDCommand command = new GetCustomerByIDCommand();
 				String songString = null;
 				try {
@@ -82,10 +85,10 @@ public class CustomerServices {
 		}
 		
 	
-	// Add a customer
+		// Add a customer
 		@POST
 		@Produces({ MediaType.APPLICATION_JSON })
-		@Consumes({ MediaType.APPLICATION_JSON })
+		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 		public Response createSongs(String payload) {
 			CreateCustomerCommand create = new CreateCustomerCommand();
 			Customer c = null;
@@ -104,4 +107,42 @@ public class CustomerServices {
 			}
 			return Response.status(200).entity(i).build();
 		}
+		
+		// Update a song
+		@POST
+		@Path("{nid}")
+		@Produces({ MediaType.APPLICATION_JSON })
+		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+		public Response updateSongs(String payload, @PathParam("nid") String nid) {
+			UpdateCustomerCommand update = new UpdateCustomerCommand();
+			Customer t = null;
+			try {
+				t = mapper.readValue(payload, Customer.class);
+				t.setNid(nid);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				Response.status(400).entity("could not read string").build();
+			}
+			try {
+				update.execute(t);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Response.status(500).build();
+			}
+			return Response.status(200).build();
+		}
+		
+		// Delete a customer
+				@DELETE
+				@Path("{nid}")
+				public Response deleteSongs(@PathParam("nid") String nid) {
+					DeleteCustomerCommand delete = new DeleteCustomerCommand();
+					try {
+						delete.execute(nid);
+					} catch (Exception e) {
+						e.printStackTrace();
+						Response.status(500).build();
+					}
+					return Response.status(200).build();
+				}
 }
