@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import org.postgresql.util.PGobject;
 
+import services.TranasactionsServices;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import command.tranasactions.CreateTranasactionsCommand;
@@ -73,15 +75,16 @@ public class Tranasactions {
 		bkg.add(45.0);
 		bkg.add(36.5);
 		Calculation aaa = new Calculation(2,5,6,bkg,150,5);
-		
+		String use="";
 		
 		Tranasactions o = new Tranasactions();
-		o.setTid(11);
+		o.setTid(10);
 		o.setNid("mv");
 		o.setType("No 5");
 		o.setDate(java.sql.Date.valueOf("2015-02-27"));
 		try {
-			o.setJson(mapper.writeValueAsString(aaa));
+			use = mapper.writeValueAsString(aaa);
+			o.setJson(use);
 			//System.out.println(mapper.writeValueAsString(o));
 		} catch(Exception e) {
 			e.printStackTrace();

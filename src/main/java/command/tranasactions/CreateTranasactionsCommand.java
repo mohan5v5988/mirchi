@@ -10,7 +10,6 @@ import org.postgresql.util.PGobject;
 
 import model.Tranasactions;
 import connectionprovider.ConnectionProvider;
-
 public class CreateTranasactionsCommand {
 	public String execute(Tranasactions c) {
 		try {

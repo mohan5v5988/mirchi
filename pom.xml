@@ -44,6 +44,11 @@
 			<version>2.14</version>
 		</dependency>
 		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>

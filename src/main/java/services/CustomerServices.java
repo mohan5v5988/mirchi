@@ -26,6 +26,7 @@ import command.customer.GetCustomerByNameCommand;
 import command.customer.ListCustomerCommand;
 import command.customer.CreateCustomerCommand;
 import command.customer.DeleteCustomerCommand;
+
 import model.Customer;
 
 
@@ -133,16 +134,16 @@ public class CustomerServices {
 		}
 		
 		// Delete a customer
-				@DELETE
-				@Path("{nid}")
-				public Response deleteSongs(@PathParam("nid") String nid) {
-					DeleteCustomerCommand delete = new DeleteCustomerCommand();
-					try {
-						delete.execute(nid);
-					} catch (Exception e) {
-						e.printStackTrace();
-						Response.status(500).build();
-					}
-					return Response.status(200).build();
-				}
+		@DELETE
+		@Path("{nid}")
+		public Response deleteSongs(@PathParam("nid") String nid) {
+			DeleteCustomerCommand delete = new DeleteCustomerCommand();
+			try {
+				delete.execute(nid);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Response.status(500).build();
+			}
+			return Response.status(200).build();
+		}
 }
