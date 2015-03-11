@@ -39,7 +39,7 @@ public class CustomerServices {
 	// Browse all customers
 		@GET
 		@Produces({ MediaType.APPLICATION_JSON })
-		public Response browseSongs(@QueryParam("offset") int offset,
+		public Response browseCustomers(@QueryParam("offset") int offset,
 				@QueryParam("count") int count) {
 			ListCustomerCommand command = new ListCustomerCommand();
 			ArrayList<Customer> list = command.execute();
@@ -47,41 +47,41 @@ public class CustomerServices {
 			hm.put(Constants.Pagination.DATA, list);
 			hm.put(Constants.Pagination.OFFSET, offset);
 			hm.put(Constants.Pagination.COUNT, count);
-			String songString = null;
+			String customerString = null;
 			try {
-				songString = mapper.writeValueAsString(hm);
+				customerString = mapper.writeValueAsString(hm);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return Response.status(200).entity(songString).build();
+			return Response.status(200).entity(customerString).build();
 		}
 		
 		// get customers by Id or name
 		@GET
 		@Path("/get")
 		@Produces({ MediaType.APPLICATION_JSON })
-		public Response getSong(@DefaultValue("nothing") @QueryParam("nid") String nid,
+		public Response getCustomers(@DefaultValue("nothing") @QueryParam("nid") String nid,
 								@DefaultValue("nothing") @QueryParam("name") String name) {
 			if(nid.equals("nothing") && name.equals("nothing")) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
 			} else if(name.equals("nothing")) {
 				GetCustomerByIDCommand command = new GetCustomerByIDCommand();
-				String songString = null;
+				String customerString = null;
 				try {
-					songString = mapper.writeValueAsString(command.execute(nid));
+					customerString = mapper.writeValueAsString(command.execute(nid));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				return Response.status(200).entity(songString).build();
+				return Response.status(200).entity(customerString).build();
 			} else {
 				GetCustomerByNameCommand command = new GetCustomerByNameCommand();
-				String songString = null;
+				String customerString = null;
 				try {
-					songString = mapper.writeValueAsString(command.execute(nid));
+					customerString = mapper.writeValueAsString(command.execute(nid));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				return Response.status(200).entity(songString).build();
+				return Response.status(200).entity(customerString).build();
 			}
 		}
 		
@@ -90,7 +90,7 @@ public class CustomerServices {
 		@POST
 		@Produces({ MediaType.APPLICATION_JSON })
 		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-		public Response createSongs(String payload) {
+		public Response createCustomer(String payload) {
 			CreateCustomerCommand create = new CreateCustomerCommand();
 			Customer c = null;
 			String i = "";
@@ -114,7 +114,7 @@ public class CustomerServices {
 		@Path("{nid}")
 		@Produces({ MediaType.APPLICATION_JSON })
 		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-		public Response updateSongs(String payload, @PathParam("nid") String nid) {
+		public Response updateCustomer(String payload, @PathParam("nid") String nid) {
 			UpdateCustomerCommand update = new UpdateCustomerCommand();
 			Customer t = null;
 			try {
@@ -136,7 +136,7 @@ public class CustomerServices {
 		// Delete a customer
 		@DELETE
 		@Path("{nid}")
-		public Response deleteSongs(@PathParam("nid") String nid) {
+		public Response deleteCustomer(@PathParam("nid") String nid) {
 			DeleteCustomerCommand delete = new DeleteCustomerCommand();
 			try {
 				delete.execute(nid);

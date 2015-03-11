@@ -21,6 +21,9 @@ public class CreateCustomerCommand {
 			stmt.setLong(4, c.getPnumber());
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
+//				PreparedStatement stmt1 = connection
+//						.prepareStatement("CREATE TABLE "+rs.getString("nid")+" (sno serial PRIMARY KEY,type char,date date NOT NULL,amount double precision NOT NULL )");
+//				stmt1.execute();
 				return rs.getString("nid");
 			}
 		} catch (URISyntaxException e) {
@@ -30,13 +33,13 @@ public class CreateCustomerCommand {
 		}
 		return "-1";
 	}
-	/*public static void main(String[] args) {
-		CreateCustomerCommand c = new CreateCustomerCommand();
-		Customer t = new Customer();
-		t.setNid("abcd");
-		t.setName("Ravi Teja");
-		t.setAddress("125 taft ave west haven ct");
-		t.setPnumber(1030183582l);
-		System.out.println(c.execute(t));
-	}*/
+//	public static void main(String[] args) {
+//		CreateCustomerCommand c = new CreateCustomerCommand();
+//		Customer t = new Customer();
+//		t.setNid("abab");
+//		t.setName("Ravi Teja");
+//		t.setAddress("125 taft ave west haven ct");
+//		t.setPnumber(1030183582l);
+//		System.out.println(c.execute(t));
+//	}
 }

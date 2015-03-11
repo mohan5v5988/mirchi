@@ -20,8 +20,12 @@ import model.Type;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import command.payments.GetPaymentsBetweenDatesAndNidCommand;
+import command.payments.GetPaymentsBetweenDatesCommand;
 import command.tranasactions.CreateTranasactionsCommand;
 import command.tranasactions.DeleteTranasactionsByTidCommand;
+import command.tranasactions.GetTranasactionsBetweenDatesAndNidCommand;
+import command.tranasactions.GetTranasactionsBetweenDatesCommand;
 import command.tranasactions.GetTranasactionsByNidCommand;
 import command.tranasactions.GetTranasactionsByNidandDateCommand;
 import command.tranasactions.GetTranasactionsByTidCommand;
@@ -36,11 +40,11 @@ import org.json.*;
 public class TranasactionsServices {
 	ObjectMapper mapper = new ObjectMapper();
 	
-	// get transaction by tid , nid ,date.
+	// get Transaction by tid , nid ,date, "date and nid".
 	@GET
 	@Path("/get")
 	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
-	public Response getSong(@DefaultValue("nothing") @QueryParam("nid") String nid,
+	public Response getTransactions(@DefaultValue("nothing") @QueryParam("nid") String nid,
 							@DefaultValue("0") @QueryParam("tid") int tid,
 							@DefaultValue("1963-12-22") @QueryParam("date") String date) {
 		if(nid.equals("nothing") && date.equals("1963-12-22") && tid == 0) {
@@ -59,8 +63,9 @@ public class TranasactionsServices {
 				GetTranasactionsByNidCommand command = new GetTranasactionsByNidCommand();
 				ArrayList<Tranasactions> arr = command.execute(nid);
 				try {
-					return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
+//					return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
 //					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
+					return Response.status(200).entity(convertTarraytoString(arr)).build();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -85,11 +90,38 @@ public class TranasactionsServices {
 		return Response.status(Response.Status.BAD_REQUEST).entity("Please check the request.").build();
 	}
 	
+	// get with two dates and nid.
+		@GET
+		@Path("/date/{date1}/{date2}")
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getPaymentByDatesOrNid(@PathParam("date1") String date1,@PathParam("date2") String date2,
+				@DefaultValue("nothing") @QueryParam("nid") String nid) {
+			if(nid.equals("nothing")) {
+				GetTranasactionsBetweenDatesCommand command = new GetTranasactionsBetweenDatesCommand();
+				String tranasactionString = null;
+				try {
+					tranasactionString = mapper.writeValueAsString(command.execute(date1,date2));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Response.status(200).entity(tranasactionString).build();
+			}else {
+				GetTranasactionsBetweenDatesAndNidCommand command = new GetTranasactionsBetweenDatesAndNidCommand();
+				String tranasactionString = null;
+				try {
+					tranasactionString = mapper.writeValueAsString(command.execute(date1,date2,nid));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Response.status(200).entity(tranasactionString).build();
+			}
+		}
+	
 	// Add a Tranasaction
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-	public Response createType(String payload) {
+	public Response createTransaction(String payload) {
 		CreateTranasactionsCommand create = new CreateTranasactionsCommand();
 		Tranasactions t = null;
 				String i = "";
@@ -113,7 +145,7 @@ public class TranasactionsServices {
 	@Path("/update/{tid}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-	public Response updateSongs(String payload, @PathParam("tid") int tid) {
+	public Response updateTransaction(String payload, @PathParam("tid") int tid) {
 		UpdateTranasactionsCommand update = new UpdateTranasactionsCommand();
 		Tranasactions t = null;
 		try {
@@ -135,7 +167,7 @@ public class TranasactionsServices {
 	// Delete a transaction
 	@DELETE
 	@Path("{tid}")
-	public Response deleteSongs(@PathParam("tid") int tid) {
+	public Response deleteTransaction(@PathParam("tid") int tid) {
 		DeleteTranasactionsByTidCommand delete = new DeleteTranasactionsByTidCommand();
 		try {
 			delete.execute(tid);
@@ -176,6 +208,7 @@ public class TranasactionsServices {
 //			s.add(convertTobjecttoString(arr.get(m)));
 		}
 		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
+			System.out.println(s1);
 		return s1.toString();
 	}
 	

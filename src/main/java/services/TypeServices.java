@@ -30,15 +30,11 @@ import model.Type;
 @Path("type")
 public class TypeServices {
 	ObjectMapper mapper = new ObjectMapper();
-//	public static void main(String[] args) {
-//		TypeServices t = new TypeServices();
-//		t.browseSongs(1, 1);
-//	}
 	
-	// Browse all types
+	// Browse all Types
 		@GET
 		@Produces({ MediaType.APPLICATION_JSON })
-		public Response browseSongs(@QueryParam("offset") int offset,
+		public Response browseTypes(@QueryParam("offset") int offset,
 				@QueryParam("count") int count) {
 			ListTypeCommand command = new ListTypeCommand();
 			ArrayList<Type> list = command.execute();
@@ -46,28 +42,28 @@ public class TypeServices {
 			hm.put(Constants.Pagination.DATA, list);
 			hm.put(Constants.Pagination.OFFSET, offset);
 			hm.put(Constants.Pagination.COUNT, count);
-			String songString = null;
+			String typeString = null;
 			try {
-				songString = mapper.writeValueAsString(hm);
+				typeString = mapper.writeValueAsString(hm);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return Response.status(200).entity(songString).build();
+			return Response.status(200).entity(typeString).build();
 		}
 		
 		// get types by type
 		@GET
 		@Path("{type}")
 		@Produces({ MediaType.APPLICATION_JSON })
-		public Response getSong(@PathParam("type") String type) {
+		public Response getType(@PathParam("type") String type) {
 			GetTypeCommand command = new GetTypeCommand();
-			String songString = null;
+			String typeString = null;
 			try {
-				songString = mapper.writeValueAsString(command.execute(type));
+				typeString = mapper.writeValueAsString(command.execute(type));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return Response.status(200).entity(songString).build();
+			return Response.status(200).entity(typeString).build();
 		}
 		
 		// Add a type
@@ -98,7 +94,7 @@ public class TypeServices {
 		@Path("{type}")
 		@Produces({ MediaType.APPLICATION_JSON })
 		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-		public Response updateSongs(String payload, @PathParam("type") String type) {
+		public Response updateTypes(String payload, @PathParam("type") String type) {
 			UpdateTypeCommand update = new UpdateTypeCommand();
 			Type t = null;
 			try {
@@ -120,7 +116,7 @@ public class TypeServices {
 		// Delete a type
 		@DELETE
 		@Path("{type}")
-		public Response deleteSongs(@PathParam("type") String type) {
+		public Response deleteType(@PathParam("type") String type) {
 			DeleteTypeCommand delete = new DeleteTypeCommand();
 			try {
 				delete.execute(type);
