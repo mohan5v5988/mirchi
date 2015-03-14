@@ -25,6 +25,7 @@ public class GetPaymentsByDateCommand {
 				p.setNid(rs.getString("nid"));
 				p.setDate(rs.getDate("date"));
 				p.setAmount(rs.getDouble("amount"));
+				p.changeToPAmount();
 				parr.add(p);
 			}
 		} catch (URISyntaxException e) {

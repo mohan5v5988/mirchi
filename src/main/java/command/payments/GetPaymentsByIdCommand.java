@@ -23,6 +23,7 @@ public class GetPaymentsByIdCommand {
 				p.setNid(rs.getString("nid"));
 				p.setDate(rs.getDate("date"));
 				p.setAmount(rs.getDouble("amount"));
+				p.changeToPAmount();
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

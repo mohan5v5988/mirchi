@@ -31,4 +31,20 @@ public class Payments {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	// to store the negative in db.
+	public Double dbAmount() {
+		return this.amount*-1;
+	}
+	// convert from negative to p.
+	public void changeToPAmount() {
+		Double a = this.amount;
+		this.amount = Math.abs(a);
+	}
+//	public static void main(String[] args) {
+//		Payments p = new Payments();
+//		p.setAmount(3423237.0);
+//		System.out.println(p.dbAmount());
+//		p.changeToPAmount();
+//		System.out.println(p.getAmount());
+//	}
 }

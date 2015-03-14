@@ -60,6 +60,7 @@ public class TypeServices {
 			String typeString = null;
 			try {
 				typeString = mapper.writeValueAsString(command.execute(type));
+				System.out.println(typeString);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

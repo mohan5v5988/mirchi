@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Payments;
-import model.Tranasactions;
 import command.payments.*;
 
 @Path("payment")
@@ -165,5 +164,20 @@ public class PaymentsServices {
 				Response.status(500).build();
 			}
 			return Response.status(200).build();
+		}
+		
+		@GET
+		@Path("/due/{nid}")
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getDueAmount(@PathParam("nid") String nid) {
+			GetDueByNidCommand command = new GetDueByNidCommand();
+			String dueString = null;
+			try {
+				dueString = mapper.writeValueAsString(command.execute(nid));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+			return Response.status(200).entity(dueString).build();
 		}
 }

@@ -21,12 +21,12 @@ public class Test {
 	static ArrayList<String> convertTarraytoString(ArrayList<Tranasactions> arr) {
 		ArrayList<String> s = new ArrayList<String>();
 		StringBuilder s1 = new StringBuilder();
-		for(int m=0;m<(arr.size()-1);m++) {
-			s1.append(convertTobjecttoString(arr.get(m))+",");
-//			s.add(convertTobjecttoString(arr.get(m)));
+		for(int m=0;m<(arr.size());m++) {
+//			s1.append(convertTobjecttoString(arr.get(m))+",");
+			s.add(convertTobjecttoString(arr.get(m)));
 		}
-		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
-		System.out.println(s1);
+//		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
+		//System.out.println(s1);
 		return s;
 	}
 	
@@ -34,7 +34,7 @@ public class Test {
 	static String convertTobjecttoString(Tranasactions t) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			System.out.println(mapper.writeValueAsString(t));
+//			System.out.println(mapper.writeValueAsString(t));
 			JSONObject obj1 = new JSONObject(mapper.writeValueAsString(t));
 			obj1.remove("json");
 			JSONObject obj = new JSONObject(t.getJson());

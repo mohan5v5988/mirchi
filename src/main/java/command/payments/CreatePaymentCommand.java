@@ -17,7 +17,7 @@ public class CreatePaymentCommand {
 					.prepareStatement("INSERT INTO PAYMENTS(nid, date, amount) VALUES(?, ?, ?) Returning id");
 			stmt.setString(1, p.getNid());
 			stmt.setDate(2, p.getDate());
-			stmt.setDouble(3, p.getAmount());
+			stmt.setDouble(3, p.dbAmount());
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				return rs.getString("id");
