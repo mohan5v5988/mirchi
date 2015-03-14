@@ -23,6 +23,7 @@ public class GetCustomerByIDCommand {
 				t.setName(rs.getString("name"));
 				t.setAddress(rs.getString("address"));
 				t.setPnumber(rs.getInt("pnumber"));
+				t.setEmail(rs.getString("email"));
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

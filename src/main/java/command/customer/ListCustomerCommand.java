@@ -23,6 +23,7 @@ public class ListCustomerCommand {
 				t.setName(rs.getString("name"));
 				t.setAddress(rs.getString("address"));
 				t.setPnumber(rs.getLong("pnumber"));
+				t.setEmail(rs.getString("email"));
 				ret.add(t);
 			}
 		} catch (URISyntaxException e) {

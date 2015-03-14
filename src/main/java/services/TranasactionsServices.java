@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -65,7 +66,7 @@ public class TranasactionsServices {
 				try {
 //					return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
 //					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
-					return Response.status(200).entity(convertTarraytoString(arr)).build();
+					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -200,15 +201,24 @@ public class TranasactionsServices {
 		return t;
 	}
 	
-	String convertTarraytoString(ArrayList<Tranasactions> arr) {
-		ArrayList<String> s = new ArrayList<String>();
-		StringBuilder s1 = new StringBuilder();
+//	String convertTarraytoString(ArrayList<Tranasactions> arr) {
+//		ArrayList<String> s = new ArrayList<String>();
+//		StringBuilder s1 = new StringBuilder();
+//		for(int m=0;m<(arr.size()-1);m++) {
+//			s1.append(convertTobjecttoString(arr.get(m))+",");
+////			s.add(convertTobjecttoString(arr.get(m)));
+//		}
+//		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
+//		return s1.toString();
+//	}
+	
+	ArrayList<HashMap<String, Object>> convertTarraytoString(ArrayList<Tranasactions> arr) throws Exception {
+		ArrayList<HashMap<String, Object>> harr = new ArrayList<HashMap<String, Object>>();
 		for(int m=0;m<(arr.size()-1);m++) {
-			s1.append(convertTobjecttoString(arr.get(m))+",");
-//			s.add(convertTobjecttoString(arr.get(m)));
+			HashMap<String, Object> hm = (HashMap<String, Object>) mapper.readValue(convertTobjecttoString(arr.get(m)),HashMap.class);
+			harr.add(hm);
 		}
-		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
-		return s1.toString();
+		return harr;
 	}
 	
 	String convertTobjecttoString(Tranasactions t) {
