@@ -9,10 +9,11 @@ import model.Tranasactions;
 import command.tranasactions.GetTranasactionsByNidandDateCommand;
 import command.tranasactions.GetTranasactionsByTidCommand;
 
-
 public class Test {
 	int a;
 	public static void main(String[] args) {
+		
+		
 		GetTranasactionsByNidandDateCommand command = new GetTranasactionsByNidandDateCommand();
 		ArrayList<Tranasactions> a = command.execute("mv", "1991-12-04");
 		ArrayList<String> s = convertTarraytoString(a);

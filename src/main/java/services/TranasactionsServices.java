@@ -17,12 +17,9 @@ import javax.ws.rs.core.Response;
 
 import model.Calculation;
 import model.Tranasactions;
-import model.Type;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import command.payments.GetPaymentsBetweenDatesAndNidCommand;
-import command.payments.GetPaymentsBetweenDatesCommand;
 import command.tranasactions.CreateTranasactionsCommand;
 import command.tranasactions.DeleteTranasactionsByTidCommand;
 import command.tranasactions.GetTranasactionsBetweenDatesAndNidCommand;
@@ -32,8 +29,6 @@ import command.tranasactions.GetTranasactionsByNidandDateCommand;
 import command.tranasactions.GetTranasactionsByTidCommand;
 import command.tranasactions.GetTranasactionsByDateCommand;
 import command.tranasactions.UpdateTranasactionsCommand;
-import command.type.CreateTypeCommand;
-import command.type.UpdateTypeCommand;
 
 import org.json.*;
 
@@ -55,8 +50,7 @@ public class TranasactionsServices {
 				GetTranasactionsByDateCommand command = new GetTranasactionsByDateCommand();
 				ArrayList<Tranasactions> arr = command.execute(date);
 				try {
-					return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
-//					return Response.status(200).entity(convertTarraytoString(arr)).build();
+					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -64,8 +58,6 @@ public class TranasactionsServices {
 				GetTranasactionsByNidCommand command = new GetTranasactionsByNidCommand();
 				ArrayList<Tranasactions> arr = command.execute(nid);
 				try {
-//					return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
-//					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
 					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
 				} catch(Exception e) {
 					e.printStackTrace();
@@ -75,8 +67,7 @@ public class TranasactionsServices {
 			GetTranasactionsByNidandDateCommand command = new GetTranasactionsByNidandDateCommand();
 			ArrayList<Tranasactions> arr = command.execute(nid, date);
 			try {
-//				return Response.status(200).entity(mapper.writeValueAsString(arr)).build();
-				return Response.status(200).entity(convertTarraytoString(arr)).build();
+				return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -101,18 +92,20 @@ public class TranasactionsServices {
 				GetTranasactionsBetweenDatesCommand command = new GetTranasactionsBetweenDatesCommand();
 				String tranasactionString = null;
 				try {
-					tranasactionString = mapper.writeValueAsString(command.execute(date1,date2));
+					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2)));
 				} catch (Exception e) {
 					e.printStackTrace();
+					tranasactionString = "Please enter a valide dates";
 				}
 				return Response.status(200).entity(tranasactionString).build();
 			}else {
 				GetTranasactionsBetweenDatesAndNidCommand command = new GetTranasactionsBetweenDatesAndNidCommand();
 				String tranasactionString = null;
 				try {
-					tranasactionString = mapper.writeValueAsString(command.execute(date1,date2,nid));
+					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2,nid)));
 				} catch (Exception e) {
 					e.printStackTrace();
+					tranasactionString = "Please enter a valide dates";
 				}
 				return Response.status(200).entity(tranasactionString).build();
 			}
@@ -200,17 +193,6 @@ public class TranasactionsServices {
 		t.setJson(mapper.writeValueAsString(c));
 		return t;
 	}
-	
-//	String convertTarraytoString(ArrayList<Tranasactions> arr) {
-//		ArrayList<String> s = new ArrayList<String>();
-//		StringBuilder s1 = new StringBuilder();
-//		for(int m=0;m<(arr.size()-1);m++) {
-//			s1.append(convertTobjecttoString(arr.get(m))+",");
-////			s.add(convertTobjecttoString(arr.get(m)));
-//		}
-//		s1.append(convertTobjecttoString(arr.get((arr.size()-1))));
-//		return s1.toString();
-//	}
 	
 	ArrayList<HashMap<String, Object>> convertTarraytoString(ArrayList<Tranasactions> arr) throws Exception {
 		ArrayList<HashMap<String, Object>> harr = new ArrayList<HashMap<String, Object>>();

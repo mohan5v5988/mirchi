@@ -1,29 +1,12 @@
 package model;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.postgresql.util.PGobject;
-
-import services.TranasactionsServices;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import command.tranasactions.CreateTranasactionsCommand;
-import command.tranasactions.DeleteTranasactionsByTidCommand;
-import command.tranasactions.GetTranasactionsBetweenDatesCommand;
-import command.tranasactions.GetTranasactionsByDateCommand;
-import command.tranasactions.GetTranasactionsByNidCommand;
-import command.tranasactions.GetTranasactionsByNidandDateCommand;
-import command.tranasactions.GetTranasactionsByTidCommand;
-import command.tranasactions.UpdateTranasactionsCommand;
 
 public class Tranasactions {
 	private int tid;
 	private String nid;
 	private String type;
-	private Date date;
+	private Date date = new Date(System.currentTimeMillis());
 	private String json;
 	
 	public String getJson() {

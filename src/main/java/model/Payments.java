@@ -6,7 +6,7 @@ public class Payments {
 	private int id;
 	private String nid;
 	private Double amount;
-	private Date date;
+	private Date date = new Date(System.currentTimeMillis());
 	public int getId() {
 		return id;
 	}

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,7 +27,6 @@ import command.customer.GetCustomerByNameCommand;
 import command.customer.ListCustomerCommand;
 import command.customer.CreateCustomerCommand;
 import command.customer.DeleteCustomerCommand;
-
 import model.Customer;
 
 
@@ -90,7 +90,7 @@ public class CustomerServices {
 		@POST
 		@Produces({ MediaType.APPLICATION_JSON })
 		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-		public Response createCustomer(String payload) {
+		public Response createCustomer(String payload,@FormParam("username") String username, @FormParam("password") String password) {
 			CreateCustomerCommand create = new CreateCustomerCommand();
 			Customer c = null;
 			String i = "";
@@ -101,7 +101,7 @@ public class CustomerServices {
 				Response.status(400).entity("could not read string").build();
 			}
 			try {
-				i = create.execute(c);
+				i = create.execute(c,username,password);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Response.status(500).build();
