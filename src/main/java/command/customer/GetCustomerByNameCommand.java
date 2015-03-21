@@ -5,12 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import model.Customer;
 import connectionprovider.ConnectionProvider;
 
 public class GetCustomerByNameCommand {
 	public Customer execute(String name) {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		Customer t = new Customer();
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -24,6 +27,7 @@ public class GetCustomerByNameCommand {
 				t.setAddress(rs.getString("address"));
 				t.setPnumber(rs.getInt("pnumber"));
 				t.setEmail(rs.getString("email"));
+				t.setDate(df.format(rs.getDate("dateofbirth")));
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

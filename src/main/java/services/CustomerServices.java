@@ -77,7 +77,7 @@ public class CustomerServices {
 				GetCustomerByNameCommand command = new GetCustomerByNameCommand();
 				String customerString = null;
 				try {
-					customerString = mapper.writeValueAsString(command.execute(nid));
+					customerString = mapper.writeValueAsString(command.execute(name));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,7 +90,7 @@ public class CustomerServices {
 		@POST
 		@Produces({ MediaType.APPLICATION_JSON })
 		@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
-		public Response createCustomer(String payload,@FormParam("username") String username, @FormParam("password") String password) {
+		public Response createCustomer(String payload){//,@FormParam("username") String username, @FormParam("password") String password) {
 			CreateCustomerCommand create = new CreateCustomerCommand();
 			Customer c = null;
 			String i = "";
@@ -101,7 +101,7 @@ public class CustomerServices {
 				Response.status(400).entity("could not read string").build();
 			}
 			try {
-				i = create.execute(c,username,password);
+				i = create.execute(c,"mohan","12345");
 			} catch (Exception e) {
 				e.printStackTrace();
 				Response.status(500).build();

@@ -12,6 +12,9 @@
 		Name: <input type="text" name="Name"><br />
 		Phone Number : <input type="int" name="Number"><br />
 		Address : <input type="text" name="Address"><br />
+		Email : <input type="text" name="Email"><br />
+		User Name : <input type="text" name="username"><br />
+		Password : <input type="text" name="password"><br />
 		<input type="submit">
 	</form>
 </body>

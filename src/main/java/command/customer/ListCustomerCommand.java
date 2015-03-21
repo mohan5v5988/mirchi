@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import model.Customer;
@@ -12,6 +14,7 @@ import connectionprovider.ConnectionProvider;
 
 public class ListCustomerCommand {
 	public ArrayList<Customer> execute() {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		ArrayList<Customer> ret = new ArrayList<Customer>();
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -24,6 +27,7 @@ public class ListCustomerCommand {
 				t.setAddress(rs.getString("address"));
 				t.setPnumber(rs.getLong("pnumber"));
 				t.setEmail(rs.getString("email"));
+				t.setDate(df.format(rs.getDate("dateofbirth")));
 				ret.add(t);
 			}
 		} catch (URISyntaxException e) {

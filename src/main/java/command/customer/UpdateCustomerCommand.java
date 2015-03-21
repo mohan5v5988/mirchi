@@ -14,12 +14,13 @@ public class UpdateCustomerCommand {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("UPDATE CUSTOMER SET name=?, address=?, pnumber=?, email=? WHERE nid=?");
+					.prepareStatement("UPDATE CUSTOMER SET name=?, address=?, pnumber=?, email=?, dateofbirth=? WHERE nid=?");
 			stmt.setString(1, t.getName());
 			stmt.setString(2, t.getAddress());
 			stmt.setDouble(3, t.getPnumber());
 			stmt.setString(4, t.getEmail());
-			stmt.setString(5, t.getNid());
+			stmt.setDate(5, java.sql.Date.valueOf(t.getDate()));
+			stmt.setString(6, t.getNid());
 			stmt.executeUpdate();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();

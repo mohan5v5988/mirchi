@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Type By ID</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<form action="rest/type/"></form>
+
 </body>
 </html>

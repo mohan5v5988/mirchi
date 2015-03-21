@@ -12,10 +12,11 @@ import connectionprovider.ConnectionProvider;
 public class GetDueByNidCommand {
 	public Due execute(String nid) {
 		Due d = new Due();
+		System.out.println(nid);
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("SELECT * FROM DUE WHERE id = ?");
+					.prepareStatement("SELECT * FROM DUE WHERE nid = ?");
 			stmt.setString(1, nid);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {

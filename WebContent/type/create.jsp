@@ -7,10 +7,10 @@
 <title>Create a Type</title>
 </head>
 <body>
-	<form method="POST" action="rest/type">
+	<form method="POST" action="typebyid.jsp">
 		Type : <input type="text" name="type"><br />
-		Rate : <input type="double" name="rate"><br />
-		<input type="submit">
+		Rate : <input type="text" name="rate"><br />
+		<input type="submit" value="submit">
 	</form>
 </body>
 </html>

@@ -1,17 +1,26 @@
 package model;
 
+
 public class Customer {
 	private String nid;
 	private String name;
 	private String address;
 	private String email;
+	private String date;
+	private long pnumber;
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	private long pnumber;
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getNid() {
 		return nid;
 	}
@@ -37,6 +46,7 @@ public class Customer {
 		this.pnumber = pnumber;
 	}
 	public String toString() {
-		return "NID : "+nid+" Name : "+name+" Address : "+address+" Phon number : "+pnumber+" Email : "+email;
+		return "NID : "+nid+" Name : "+name+" Address : "+address+
+				" Phon number : "+pnumber+" Email : "+email+" Date of Birth : "+date;
 	}
 }

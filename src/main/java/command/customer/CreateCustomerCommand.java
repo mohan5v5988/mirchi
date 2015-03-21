@@ -14,12 +14,13 @@ public class CreateCustomerCommand {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
-					.prepareStatement("INSERT INTO CUSTOMER(nid, name, address, pnumber,email) VALUES(?, ?, ?, ?, ?) Returning nid");
+					.prepareStatement("INSERT INTO CUSTOMER(nid, name, address, pnumber,email,dateofbirth) VALUES(?, ?, ?, ?, ?, ?) Returning nid");
 			stmt.setString(1, c.getNid());
 			stmt.setString(2, c.getName());
 			stmt.setString(3, c.getAddress());
 			stmt.setLong(4, c.getPnumber());
 			stmt.setString(5, c.getEmail());
+			stmt.setDate(6, java.sql.Date.valueOf(c.getDate()));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				PreparedStatement stmt1 = connection
