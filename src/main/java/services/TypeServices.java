@@ -14,6 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.server.mvc.Viewable;
+
 import util.Constants;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,17 +40,18 @@ public class TypeServices {
 				@QueryParam("count") int count) {
 			ListTypeCommand command = new ListTypeCommand();
 			ArrayList<Type> list = command.execute();
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put(Constants.Pagination.DATA, list);
-			hm.put(Constants.Pagination.OFFSET, offset);
-			hm.put(Constants.Pagination.COUNT, count);
-			String typeString = null;
-			try {
-				typeString = mapper.writeValueAsString(hm);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return Response.status(200).entity(typeString).build();
+			return Response.ok(new Viewable("/type/alltypes.jsp", list)).build();
+//			HashMap<String, Object> hm = new HashMap<String, Object>();
+//			hm.put(Constants.Pagination.DATA, list);
+//			hm.put(Constants.Pagination.OFFSET, offset);
+//			hm.put(Constants.Pagination.COUNT, count);
+//			String typeString = null;
+//			try {
+//				typeString = mapper.writeValueAsString(hm);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return Response.status(200).entity("").build();//typeString).build();
 		}
 		
 		// get types by type
