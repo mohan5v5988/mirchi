@@ -6,15 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>All Types</title>
+<link href="main.css" rel="stylesheet" />
+<title>Single Types</title>
 </head>
 <body>
   <h1>Types are : </h1>
   <p>
     <% HashMap<String, Object> it = (HashMap<String, Object>)pageContext.findAttribute("it");
-       for(Type t : (ArrayList<Type>)it.get("Type")){
-    	   out.println("<br><b>"+t.getType()+"</b> = <i>"+t.getRate()+"</i>");
-       }
+       Type t = (Type) it.get("Type");
+    	out.println("<br><b>"+t.getType()+"</b> = <i>"+t.getRate()+"</i>");
+       
     %>
   </p>
 </body>

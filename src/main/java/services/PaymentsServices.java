@@ -14,6 +14,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.server.mvc.Viewable;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Payments;
@@ -168,16 +170,17 @@ public class PaymentsServices {
 		
 		@GET
 		@Path("/due/{nid}")
-		@Produces({ MediaType.APPLICATION_JSON })
+//		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getDueAmount(@PathParam("nid") String nid) {
 			GetDueByNidCommand command = new GetDueByNidCommand();
-			String dueString = null;
-			try {
-				dueString = mapper.writeValueAsString(command.execute(nid));
-			} catch (Exception e) {
-				e.printStackTrace();
-				return Response.status(Response.Status.BAD_REQUEST).build();
-			}
-			return Response.status(200).entity(dueString).build();
+			return Response.ok(new Viewable("/due/due.jsp", command.execute(nid))).build();
+//			String dueString = null;
+//			try {
+//				dueString = mapper.writeValueAsString(command.execute(nid));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				return Response.status(Response.Status.BAD_REQUEST).build();
+//			}
+//			return Response.status(200).entity(dueString).build();
 		}
 }

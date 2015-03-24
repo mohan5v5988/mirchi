@@ -17,6 +17,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.server.mvc.Viewable;
+
 import util.Constants;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,51 +40,65 @@ public class CustomerServices {
 
 	// Browse all customers
 		@GET
-		@Produces({ MediaType.APPLICATION_JSON })
+//		@Produces({ MediaType.APPLICATION_JSON })
 		public Response browseCustomers(@QueryParam("offset") int offset,
 				@QueryParam("count") int count) {
 			ListCustomerCommand command = new ListCustomerCommand();
 			ArrayList<Customer> list = command.execute();
 			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put(Constants.Pagination.DATA, list);
-			hm.put(Constants.Pagination.OFFSET, offset);
-			hm.put(Constants.Pagination.COUNT, count);
-			String customerString = null;
-			try {
-				customerString = mapper.writeValueAsString(hm);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return Response.status(200).entity(customerString).build();
+			hm.put("Customer", list);
+			return Response.ok(new Viewable("/customer/DisplayAllC.jsp", hm)).build();
+//			hm.put(Constants.Pagination.DATA, list);
+//			hm.put(Constants.Pagination.OFFSET, offset);
+//			hm.put(Constants.Pagination.COUNT, count);
+//			String customerString = null;
+//			try {
+//				customerString = mapper.writeValueAsString(hm);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return Response.status(200).entity(customerString).build();
 		}
 		
 		// get customers by Id or name
 		@GET
 		@Path("/get")
-		@Produces({ MediaType.APPLICATION_JSON })
+//		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getCustomers(@DefaultValue("nothing") @QueryParam("nid") String nid,
 								@DefaultValue("nothing") @QueryParam("name") String name) {
+			
 			if(nid.equals("nothing") && name.equals("nothing")) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
 			} else if(name.equals("nothing")) {
 				GetCustomerByIDCommand command = new GetCustomerByIDCommand();
-				String customerString = null;
-				try {
-					customerString = mapper.writeValueAsString(command.execute(nid));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return Response.status(200).entity(customerString).build();
+				return Response.ok(new Viewable("/customer/DisplayC.jsp", command.execute(nid))).build();
 			} else {
 				GetCustomerByNameCommand command = new GetCustomerByNameCommand();
-				String customerString = null;
-				try {
-					customerString = mapper.writeValueAsString(command.execute(name));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return Response.status(200).entity(customerString).build();
+				return Response.ok(new Viewable("/customer/DisplayC.jsp", command.execute(name))).build();
 			}
+			
+			
+//			if(nid.equals("nothing") && name.equals("nothing")) {
+//				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
+//			} else if(name.equals("nothing")) {
+//				GetCustomerByIDCommand command = new GetCustomerByIDCommand();
+//				String customerString = null;
+//				try {
+//					customerString = mapper.writeValueAsString(command.execute(nid));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return Response.status(200).entity(customerString).build();
+//			} else {
+//				GetCustomerByNameCommand command = new GetCustomerByNameCommand();
+//				String customerString = null;
+//				try {
+//					customerString = mapper.writeValueAsString(command.execute(name));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//				return Response.status(200).entity(customerString).build();
+//			}
 		}
 		
 	
