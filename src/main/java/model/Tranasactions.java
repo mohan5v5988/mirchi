@@ -8,6 +8,7 @@ public class Tranasactions {
 	private String type;
 	private Date date = new Date(System.currentTimeMillis());
 	private String json;
+	private Calculation c = null;
 	
 	public String getJson() {
 		return json;
@@ -15,6 +16,14 @@ public class Tranasactions {
 
 	public void setJson(String json) {
 		this.json = json;
+	}
+
+	public Calculation getC() {
+		return c;
+	}
+
+	public void setC(Calculation c) {
+		this.c = c;
 	}
 
 	public int getTid() {

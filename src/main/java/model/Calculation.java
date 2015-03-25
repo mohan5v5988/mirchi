@@ -131,7 +131,7 @@ public class Calculation
 	}
 	
 	public String toString() {
-		output = "B.No"+"   "+"Kg  "+"       "+"Rate  "+"   "+"Totle Amount  "+"\n";
+		output = "B.No"+"   "+"Kg  "+"       "+"Rate  "+"   "+"Total Amount  "+"\n";
 		for(int m=0;m<bags;m++)
 	    {
 	   		output += (m+1)+"        "+bagkg.get(m)+"       "+rate+"     "+amount.get(m)+"\n";

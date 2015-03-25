@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Calculation;
+import model.HelpingMethods;
 import model.Tranasactions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +31,7 @@ import command.tranasactions.GetTranasactionsByTidCommand;
 import command.tranasactions.GetTranasactionsByDateCommand;
 import command.tranasactions.UpdateTranasactionsCommand;
 
+import org.glassfish.jersey.server.mvc.Viewable;
 import org.json.*;
 
 @Path("transaction")
@@ -39,76 +41,109 @@ public class TranasactionsServices {
 	// get Transaction by tid , nid ,date, "date and nid".
 	@GET
 	@Path("/get")
-	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
+//	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
 	public Response getTransactions(@DefaultValue("nothing") @QueryParam("nid") String nid,
 							@DefaultValue("0") @QueryParam("tid") int tid,
 							@DefaultValue("1963-12-22") @QueryParam("date") String date) {
+		HashMap<String, Object> hm = new HashMap<String, Object>();
 		if(nid.equals("nothing") && date.equals("1963-12-22") && tid == 0) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
 		} else if(nid.equals("nothing") ^ date.equals("1963-12-22")) {
 			if(nid.equals("nothing")) {
 				GetTranasactionsByDateCommand command = new GetTranasactionsByDateCommand();
-				ArrayList<Tranasactions> arr = command.execute(date);
-				try {
-					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				hm.put("Tranasactions", HelpingMethods.setCalObjToTran(command.execute(date)));
 			} else if(date.equals("1963-12-22")){
 				GetTranasactionsByNidCommand command = new GetTranasactionsByNidCommand();
-				ArrayList<Tranasactions> arr = command.execute(nid);
-				try {
-					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				hm.put("Tranasactions", HelpingMethods.setCalObjToTran(command.execute(nid)));
 			}
 		} else if(tid == 0) {
 			GetTranasactionsByNidandDateCommand command = new GetTranasactionsByNidandDateCommand();
-			ArrayList<Tranasactions> arr = command.execute(nid, date);
-			try {
-				return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+			hm.put("Tranasactions", HelpingMethods.setCalObjToTran(command.execute(nid, date)));
 		} else {
 			GetTranasactionsByTidCommand command = new GetTranasactionsByTidCommand();
-			try {
-				return Response.status(200).entity(convertTobjecttoString(command.execute(tid))).build();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			ArrayList<Tranasactions> arr = new ArrayList<Tranasactions>();
+			arr.add(command.execute(tid));
+			hm.put("Tranasactions", HelpingMethods.setCalObjToTran(arr));
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Please check the request.").build();
+		return Response.ok(new Viewable("/tranasactions/DisplayAllT.jsp", hm)).build();
+		
+//		if(nid.equals("nothing") && date.equals("1963-12-22") && tid == 0) {
+//			return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
+//		} else if(nid.equals("nothing") ^ date.equals("1963-12-22")) {
+//			if(nid.equals("nothing")) {
+//				GetTranasactionsByDateCommand command = new GetTranasactionsByDateCommand();
+//				ArrayList<Tranasactions> arr = command.execute(date);
+//				try {
+//					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//			} else if(date.equals("1963-12-22")){
+//				GetTranasactionsByNidCommand command = new GetTranasactionsByNidCommand();
+//				ArrayList<Tranasactions> arr = command.execute(nid);
+//				try {
+//					return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		} else if(tid == 0) {
+//			GetTranasactionsByNidandDateCommand command = new GetTranasactionsByNidandDateCommand();
+//			ArrayList<Tranasactions> arr = command.execute(nid, date);
+//			try {
+//				return Response.status(200).entity(mapper.writeValueAsString(convertTarraytoString(arr))).build();
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//		} else {
+//			GetTranasactionsByTidCommand command = new GetTranasactionsByTidCommand();
+//			try {
+//				return Response.status(200).entity(convertTobjecttoString(command.execute(tid))).build();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return Response.status(Response.Status.BAD_REQUEST).entity("Please check the request.").build();
 	}
 	
 	// get with two dates and nid.
 		@GET
 		@Path("/date/{date1}/{date2}")
-		@Produces({ MediaType.APPLICATION_JSON })
+//		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getPaymentByDatesOrNid(@PathParam("date1") String date1,@PathParam("date2") String date2,
 				@DefaultValue("nothing") @QueryParam("nid") String nid) {
+			HashMap<String, Object> hm = new HashMap<String, Object>();
 			if(nid.equals("nothing")) {
 				GetTranasactionsBetweenDatesCommand command = new GetTranasactionsBetweenDatesCommand();
-				String tranasactionString = null;
-				try {
-					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2)));
-				} catch (Exception e) {
-					e.printStackTrace();
-					tranasactionString = "Please enter a valide dates";
-				}
-				return Response.status(200).entity(tranasactionString).build();
+				hm.put("Tranasactions", HelpingMethods.setCalObjToTran(command.execute(date1,date2)));
 			}else {
 				GetTranasactionsBetweenDatesAndNidCommand command = new GetTranasactionsBetweenDatesAndNidCommand();
-				String tranasactionString = null;
-				try {
-					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2,nid)));
-				} catch (Exception e) {
-					e.printStackTrace();
-					tranasactionString = "Please enter a valide dates";
-				}
-				return Response.status(200).entity(tranasactionString).build();
+				hm.put("Tranasactions", HelpingMethods.setCalObjToTran(command.execute(date1,date2,nid)));
 			}
+			return Response.ok(new Viewable("/tranasactions/DisplayAllT.jsp", hm)).build();
+			
+			
+//			if(nid.equals("nothing")) {
+//				GetTranasactionsBetweenDatesCommand command = new GetTranasactionsBetweenDatesCommand();
+//				String tranasactionString = null;
+//				try {
+//					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2)));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					tranasactionString = "Please enter a valide dates";
+//				}
+//				return Response.status(200).entity(tranasactionString).build();
+//			}else {
+//				GetTranasactionsBetweenDatesAndNidCommand command = new GetTranasactionsBetweenDatesAndNidCommand();
+//				String tranasactionString = null;
+//				try {
+//					tranasactionString = mapper.writeValueAsString(convertTarraytoString(command.execute(date1,date2,nid)));
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//					tranasactionString = "Please enter a valide dates";
+//				}
+//				return Response.status(200).entity(tranasactionString).build();
+//			}
 		}
 	
 	// Add a Tranasaction
