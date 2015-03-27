@@ -49,11 +49,6 @@
 			<version>2.14</version>
 		</dependency>
 		<dependency>
-          <groupId>com.google.api-client</groupId>
-          <artifactId>google-api-client</artifactId>
-          <version>1.19.1</version>
-        </dependency>
-		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
