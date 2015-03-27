@@ -1,5 +1,6 @@
 /Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/command/tranasactions/DeleteTranasactionsByTidCommand.java
 /Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/command/type/GetTypeCommand.java
+/Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/model/HelpingMethods.java
 /Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/services/TypeServices.java
 /Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/connectionprovider/ConnectionProvider.java
 /Users/MohanKumarVelaga/Documents/My Work/SaaS/Mirchi/src/main/java/command/payments/GetPaymentsByNidandDateCommand.java

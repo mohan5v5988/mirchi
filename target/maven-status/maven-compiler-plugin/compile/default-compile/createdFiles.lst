@@ -1,3 +1,4 @@
+model/HelpingMethods.class
 command/payments/GetPaymentsBetweenDatesAndNidCommand.class
 command/tranasactions/UpdateTranasactionsCommand.class
 connectionprovider/ConnectionProvider.class
