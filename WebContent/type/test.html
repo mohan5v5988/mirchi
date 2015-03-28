@@ -5,48 +5,21 @@
 </script>
 <script>
 //we are reusing this URL, somove it to a variable
-base_url="http://localhost:8080/unh/rest/song";
-meta_url="http://localhost:8080/unh/rest/song/metadata/";
+base_url="http://localhost:8080/Mirchi/rest/type/";
 $(document).ready(function(){
-    $.getJSON(meta_url,function(data){  
-        $.each(data, function(key, value){
-          $("div.song_form").append("<br/>Please enter " + key + ":"+"<input type='text' name='"+key+"'"+">");
-        });
-    });
-    $.fn.serializeObject = function()
-    {
-       var o = {};
-       var a = this.serializeArray();
-       $.each(a, function() {
-           if (o[this.name]) {
-               if (!o[this.name].push) {
-                   o[this.name] = [o[this.name]];
-               }
-               o[this.name].push(this.value || '');
-           } else {
-               o[this.name] = this.value || '';
-           }
-       });
-       return o;
-    };
     $('#song_form').submit(function(){
-      console.log($('#song_form').serializeObject());
-      postData($('#song_form').serializeObject());
-      return false;
+    	deleteData($('.ids').val());
+    	return false;
     });
-    function postData(data){
+    function deleteData(ids){
         $.ajax({
-                type: "POST",
-                url: "http://localhost:8080/Mirchi/rest/type",
-                data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8",
-                crossDomain: true,
-                dataType: "json",
+                type: "DELETE",
+                url: base_url+ids,
                 success: function (data, status, jqXHR) {
-                    alert("success");
+                    alert("deleted");
                 },
                 error: function (jqXHR, status) {
-                    console.log(jqXHR);
+                    console.log(status);
                     alert('failed, please check console for errors');
                 }
              });
@@ -55,12 +28,10 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<h1 style="text-align:center;">Create a new Song</h1>
-<form id="song_form">
-<div class="song_form">
-Type : <input type="text" name="type"><br />
-		Rate : <input type="text" name="rate"><br />
-</div>
+<h1 style="text-align:center;">Delete a Song</h1>
+<form id="song_form" method="POST">
+Enter the Id of the song to be deleted: <input type="text" class="ids">
+
 <input type="Submit">
 </form>
 </body>

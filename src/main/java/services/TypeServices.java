@@ -28,7 +28,6 @@ import command.type.ListTypeCommand;
 import model.Type;
 
 
-
 @Path("type")
 public class TypeServices {
 	ObjectMapper mapper = new ObjectMapper();
@@ -95,7 +94,9 @@ public class TypeServices {
 				e.printStackTrace();
 				Response.status(500).build();
 			}
-			return Response.status(200).entity(i).build();
+//			return Response.ok(new Viewable("/type/type.jsp")).build();
+//			return Response.status(200).entity(i).build();
+			return Response.status(200).build();
 		}
 		
 		// Update a type
