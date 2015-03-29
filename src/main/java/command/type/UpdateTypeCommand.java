@@ -18,6 +18,7 @@ public class UpdateTypeCommand {
 			stmt.setDouble(1, t.getRate());
 			stmt.setString(2, t.getType());
 			stmt.executeUpdate();
+//			System.out.println("got it");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

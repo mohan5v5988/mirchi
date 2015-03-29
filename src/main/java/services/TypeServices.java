@@ -34,44 +34,43 @@ public class TypeServices {
 	
 	// Browse all Types
 		@GET
-		//@Produces({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
 		public Response browseTypes(@QueryParam("offset") int offset,
 				@QueryParam("count") int count) {
 			ListTypeCommand command = new ListTypeCommand();
 			ArrayList<Type> list = command.execute();
-			
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put("Type", list);
-			return Response.ok(new Viewable("/type/alltypes.jsp", hm)).build();
+//			HashMap<String, Object> hm = new HashMap<String, Object>();
+//			hm.put("Type", list);
+//			return Response.ok(new Viewable("/type/alltypes.jsp", list)).build();
 //			hm.put(Constants.Pagination.DATA, list);
 //			hm.put(Constants.Pagination.OFFSET, offset);
 //			hm.put(Constants.Pagination.COUNT, count);
-//			String typeString = null;
-//			try {
-//				typeString = mapper.writeValueAsString(hm);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return Response.status(200).entity("").build();//typeString).build();
+			String typeString = null;
+			try {
+				typeString = mapper.writeValueAsString(list);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return Response.status(200).entity(typeString).build();//typeString).build();
 		}
 		
 		// get types by type
 		@GET
 		@Path("{type}")
-//		@Produces({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getType(@PathParam("type") String type) {
 			GetTypeCommand command = new GetTypeCommand();
-			HashMap<String, Object> hm = new HashMap<String, Object>();
-			hm.put("Type", command.execute(type));
-			return Response.ok(new Viewable("/type/DisplyTbyID.jsp", hm)).build();
-//			String typeString = null;
-//			try {
-//				typeString = mapper.writeValueAsString(command.execute(type));
-//				System.out.println(typeString);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return Response.status(200).entity(typeString).build();
+//			HashMap<String, Object> hm = new HashMap<String, Object>();
+//			hm.put("Type", command.execute(type));
+//			return Response.ok(new Viewable("/type/DisplyTbyID.jsp", hm)).build();
+			String typeString = null;
+			try {
+				typeString = mapper.writeValueAsString(command.execute(type));
+				System.out.println(typeString);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return Response.status(200).entity(typeString).build();
 		}
 		
 		// Add a type
@@ -107,6 +106,7 @@ public class TypeServices {
 		public Response updateTypes(String payload, @PathParam("type") String type) {
 			UpdateTypeCommand update = new UpdateTypeCommand();
 			Type t = null;
+			System.out.println("got it");
 			try {
 				t = mapper.readValue(payload, Type.class);
 				t.setType(type);
@@ -120,6 +120,7 @@ public class TypeServices {
 				e.printStackTrace();
 				Response.status(500).build();
 			}
+			System.out.println("got it!!!!!");
 			return Response.status(200).build();
 		}
 		

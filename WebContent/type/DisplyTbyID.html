@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js">
+</script>
+<script>
+base_url="http://localhost:8080/Mirchi/rest/type/";
+$(document).ready(function(){
+    $('#str_form').submit(function(){
+    	console.log($('.str').val());
+    	getData($('.str').val());
+    	return false;
+    });
+    function getData(str){
+        $.ajax({
+                type: "GET",
+                url: base_url+str,
+                success: function (data1, status, jqXHR) {
+                	console.log(data1);
+				$.each( data1, function( count, object ) {  
+	    			$("div.t").append("<br/><h1 style='text-align: center;'>Title:"+object['type']+"</h1>");
+	    	});
+								
+                },
+                error: function (jqXHR, status) {
+                    console.log(jqXHR);
+                    $('#result4').html('Story  not Found !');
+                }
+             });
+       }
+});
+</script>
+</head>
+<body>
+<h1 style="text-align:center;">Search</h1>
+<h2 style="text-align:center;"> Searches only for keyword appearing in the title..!!</h2>
+<form id="str_form" method="POST">
+Search for: <input type="text" class="str">
+
+<input type="Submit">
+</form>
+
+	<br><br><br>
+	<div id="result4"></div>
+<div class="t"></div>
+<div>
+	<a href="create.html"><INPUT TYPE="BUTTON" VALUE="Create Type"></a><br />
+	<a href="update.html"><INPUT TYPE="BUTTON" VALUE="Update Type"></a><br />
+	<a href="alltypes.html"><INPUT TYPE="BUTTON" VALUE="Get all Types"></a><br />
+	<a href="delete.html"><INPUT TYPE="BUTTON" VALUE="Delete Type"></a><br />
+	</div>
+</body>
+</html>
