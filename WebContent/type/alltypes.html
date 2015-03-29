@@ -2,15 +2,15 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js">
-	
 </script>
+<link href="../main.css" rel="stylesheet" />
 <script>
 base_url="http://localhost:8080/Mirchi/rest/type";
 	$(document).ready(function() {
 		$.getJSON(base_url, function(dat) {
 			console.log(dat);
 			$.each(dat, function(count, obj) {
-				$("div.type").append("<br/>"+(count+1)+" " + obj['type'] + " = " + obj['rate']+ " ");
+				$("div.type").append("<br/>" + obj['type'] + " = " + obj['rate']+ " ");
 			})
 		});
 	});

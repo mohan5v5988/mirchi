@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="main.css" rel="stylesheet" />
+<link href="../main.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-latest.min.js">
 </script>
 <script>
 //we are reusing this URL, somove it to a variable
 base_url="http://localhost:8080/Mirchi/rest/type/";
 $(document).ready(function(){
-    $('#song_form').submit(function(){
-    	deleteData($('.ids').val());
+    $('#type_form').submit(function(){
+    	deleteData($('.type').val());
     	return false;
     });
     function deleteData(ids){
@@ -30,8 +30,8 @@ $(document).ready(function(){
 </head>
 <body>
 <h1 style="text-align:center;">Delete a Song</h1>
-<form id="song_form" method="POST">
-Enter the Id of the song to be deleted: <input type="text" class="ids">
+<form id="type_form" method="POST">
+Enter the Type you want to delete: <input type="text" class="type">
 
 <input type="Submit">
 </form>

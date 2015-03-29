@@ -7,8 +7,8 @@
 <link href="../main.css" rel="stylesheet" />
 <script>
 	//we are reusing this URL, somove it to a variable
-	base_url = "http://localhost:8080/Mirchi/rest/type";
-	meta_url = "http://localhost:8080/Mirchi/rest/type/no5/metadata/";
+	base_url = "http://localhost:8080/Mirchi/rest/payment";
+	meta_url = "http://localhost:8080/Mirchi/rest/payment/metadata/";
 	$(document).ready(function() {
 			$.getJSON(meta_url,function(data) {
 				$.each(data,function(key, value) {
@@ -38,7 +38,7 @@
 			function postData(data) {
 				$.ajax({
 					type : "POST",
-					url : "http://localhost:8080/Mirchi/rest/type",
+					url : "http://localhost:8080/Mirchi/rest/payment",
 					data : JSON.stringify(data),
 					contentType : "application/json; charset=utf-8",
 					crossDomain : true,
@@ -56,17 +56,10 @@
 </script>
 </head>
 <body>
-	<h1 style="text-align: center;">Create a new Type</h1>
+	<h1 style="text-align: center;">Create a new Payment</h1>
 	<form id="song_form">
 		<div class="song_form"></div>
 		<input type="Submit">
 	</form>
-	<div>
-		<a href="update.html"><INPUT TYPE="BUTTON" VALUE="Update Type"></a><br />
-		<a href="alltypes.html"><INPUT TYPE="BUTTON" VALUE="Get all Types"></a><br />
-		<a href="DisplyTbyID.html"><INPUT TYPE="BUTTON"
-			VALUE="Get Type by id"></a><br /> <a href="delete.html"><INPUT
-			TYPE="BUTTON" VALUE="Delete Type"></a><br />
-	</div>
 </body>
 </html>
