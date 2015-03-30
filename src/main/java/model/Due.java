@@ -15,4 +15,7 @@ public class Due {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
+	public String toString() {
+		return "NID : "+nid+" Amount : "+amount;
+	}
 }

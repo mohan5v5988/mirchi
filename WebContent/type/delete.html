@@ -8,10 +8,15 @@
 //we are reusing this URL, somove it to a variable
 base_url="http://localhost:8080/Mirchi/rest/type/";
 $(document).ready(function(){
-    $('#type_form').submit(function(){
-    	deleteData($('.type').val());
-    	return false;
-    });
+	$.getJSON(base_url, function(data) {
+		$.each(data, function(count, object) {
+			$("#options").append("<option value='"+object.type+"'>"+object.type+"</option>");
+		});
+	});
+	
+	$("#dbut").on('click', function() {
+		deleteData($("#options").val());
+	})
     function deleteData(ids){
         $.ajax({
                 type: "DELETE",
@@ -30,11 +35,9 @@ $(document).ready(function(){
 </head>
 <body>
 <h1 style="text-align:center;">Delete a Song</h1>
-<form id="type_form" method="POST">
-Enter the Type you want to delete: <input type="text" class="type">
-
-<input type="Submit">
-</form>
+Please Select the type which you want :
+	<select id='options'></select>
+	<button id="dbut">Delete</button>
 <div>
 	<a href="create.html"><INPUT TYPE="BUTTON" VALUE="Create Type"></a><br />
 	<a href="update.html"><INPUT TYPE="BUTTON" VALUE="Update Type"></a><br />

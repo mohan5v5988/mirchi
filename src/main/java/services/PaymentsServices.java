@@ -19,6 +19,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import model.Due;
 import model.Payments;
 import command.payments.*;
 
@@ -198,6 +199,25 @@ public class PaymentsServices {
 				Response.status(500).build();
 			}
 			return Response.status(200).build();
+		}
+		
+		@GET
+		@Path("/due")
+		@Produces({ MediaType.APPLICATION_JSON })
+		public Response getDueAmount() {
+			GetDueNid command = new GetDueNid();
+			String dueString = null;
+			ArrayList<Due> d = command.execute();
+			for(Due a : d) {
+				System.out.println(a);
+			}
+			try {
+				dueString = mapper.writeValueAsString(d);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
+			return Response.status(200).entity(dueString).build();
 		}
 		
 		@GET

@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-latest.min.js">
-</script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="../main.css" rel="stylesheet" />
 <script>
-base_url="http://localhost:8080/Mirchi/rest/payment/due/";
-$(document).ready(function(){
-    $('#str_form').submit(function(){
-    	console.log($('.str').val());
-    	getData($('.str').val());
-    	return false;
-    });
-    function getData(str){
-        $.ajax({
-                type: "GET",
-                url: base_url+str,
-                success: function (data1, status, jqXHR) {
-                	console.log(data1);
-	    			$("div.t").append("<br/><h1 style='text-align: center;'>NID :"+data1.nid+" Amount :"+data1.amount+"</h1>");
-                },
-                error: function (jqXHR, status) {
-                    console.log(jqXHR);
-                    $('#result4').html('not Found !');
-                }
-             });
-       }
-});
+	base_url = "http://localhost:8080/Mirchi/rest/payment/due/";
+	$(document).ready(
+			function() {
+				$.getJSON(base_url, function(data) {
+					$.each(data, function(count, object) {
+						console.log(object.nid);
+						$("#options").append(
+								"<option value='"+object.nid+"'>"
+										+ object.nid + "</option>");
+					});
+				});
+				$("#options").change(function(){
+// 					console.log($(this).val());
+// 					alert($(this).val());
+					getData($(this).val());
+				});
+				function getData(str) {
+					$.ajax({
+						type : "GET",
+						url : base_url + str,
+						success : function(data1, status, jqXHR) {
+							console.log(data1);
+							$("div.t").html("");
+							$("div.t").append(
+									"<br/><h1 style='text-align: center;'>NID : "
+											+ data1.nid +" <br />Amount : " + data1.amount + "</h1>");
+						},
+						error : function(jqXHR, status) {
+							console.log(jqXHR);
+							$('#result').html('Type not Found !');
+						}
+					});
+				}
+			});
 </script>
 </head>
 <body>
-<h1 style="text-align:center;">Search</h1>
-<h2 style="text-align:center;"> Please enter the NID of the Customer </h2>
-<form id="str_form" method="POST">
-Search for: <input type="text" class="str">
-
-<input type="Submit">
-</form>
-
-	<br><br><br>
-	<div id="result4"></div>
-<div class="t"></div>
+	Please Select the ID which you want :
+	<select id='options'></select>
+	<div class="t"></div>
+</body>
 </html>
