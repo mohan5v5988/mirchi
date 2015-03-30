@@ -23,12 +23,12 @@ public class CreateCustomerCommand {
 			stmt.setDate(6, java.sql.Date.valueOf(c.getDate()));
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				PreparedStatement stmt1 = connection
-						.prepareStatement("INSERT INTO USERNAME (nid, username, password) VALUES(?, ?, ?)");
-				stmt1.setString(1, rs.getString("nid"));
-				stmt1.setString(2, username);
-				stmt1.setString(3, password);
-				stmt1.execute();
+//				PreparedStatement stmt1 = connection
+//						.prepareStatement("INSERT INTO USERNAME (nid, username, password) VALUES(?, ?, ?)");
+//				stmt1.setString(1, rs.getString("nid"));
+//				stmt1.setString(2, username);
+//				stmt1.setString(3, password);
+//				stmt1.execute();
 				return rs.getString("nid");
 			}
 		} catch (URISyntaxException e) {

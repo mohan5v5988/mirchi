@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.min.js">
+</script>
+<script>
+//we are reusing this URL, somove it to a variable
+base_url="http://localhost:8080/Mirchi/rest/customer";
+meta_url="http://localhost:8080/Mirchi/rest/customer/metadata/";
+$(document).ready(function(){
+    $.getJSON(meta_url,function(data){	
+    		$.each(data, function(key, value){
+    			$("div.song_form").append("<br/>Please enter " + key + ":"+"<input type='text' name='"+key+"'"+">");
+    		});
+    });
+});
+</script>
+</head>
+<body>
+<h1 style="text-align:center;">Create a new Song</h1>
+<div class="song_form"></div>
+
+<input type="Submit">
+</body>
+</html>
