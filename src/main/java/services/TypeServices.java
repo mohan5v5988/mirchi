@@ -18,6 +18,7 @@ import org.glassfish.jersey.server.mvc.Viewable;
 
 import util.Constants;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import command.type.CreateTypeCommand;
@@ -31,6 +32,23 @@ import model.Type;
 @Path("type")
 public class TypeServices {
 	ObjectMapper mapper = new ObjectMapper();
+	
+	@GET
+	@Path("metadata")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getSongMeta() {
+		Type t = new Type();
+		try {
+			@SuppressWarnings("unchecked")
+			HashMap songHM = mapper.convertValue(t, HashMap.class);
+			return Response.status(200).entity(mapper.writeValueAsString(songHM)).build();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return Response.status(500).build();
+	}
+	
+	
 	
 	// Browse all Types
 		@GET
