@@ -45,7 +45,7 @@ public class PaymentsServices {
 	
 	// get all
 	@GET
-//	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
+	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
 	public Response getTransactions() {
 		ArrayList<Payments> arr = new ArrayList<Payments>();
 		String paymentString = null;
