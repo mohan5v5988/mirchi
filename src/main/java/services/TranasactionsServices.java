@@ -259,7 +259,7 @@ public class TranasactionsServices {
 		t.setTid(myJSON.getInt("tid"));
 		t.setNid(myJSON.getString("nid"));
 		t.setType(myJSON.getString("type"));
-		t.setDate(java.sql.Date.valueOf(myJSON.getString("date")));
+		t.setDate(myJSON.getString("date"));
 		t.setJson(mapper.writeValueAsString(c));
 		return t;
 	}

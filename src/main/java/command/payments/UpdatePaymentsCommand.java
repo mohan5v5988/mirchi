@@ -15,7 +15,7 @@ public class UpdatePaymentsCommand {
 			PreparedStatement stmt = connection
 					.prepareStatement("UPDATE PAYMENTS SET nid=?,date=?,amount=? WHERE id=?");
 			stmt.setString(1, p.getNid());
-			stmt.setDate(2, p.getDate());
+			stmt.setDate(2, java.sql.Date.valueOf(p.getDate()));
 			stmt.setDouble(3, p.dbAmount());
 			stmt.setInt(4, p.getId());
 			stmt.executeUpdate();

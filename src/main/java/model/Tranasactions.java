@@ -6,7 +6,7 @@ public class Tranasactions {
 	private int tid;
 	private String nid;
 	private String type;
-	private Date date = new Date(System.currentTimeMillis());
+	private String date;
 	private String json;
 	private Calculation c = null;
 	
@@ -50,11 +50,11 @@ public class Tranasactions {
 		this.type = type;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
@@ -73,7 +73,7 @@ public class Tranasactions {
 //		o.setTid(10);
 //		o.setNid("mv");
 //		o.setType("No 5");
-//		o.setDate(java.sql.Date.valueOf("2015-03-08"));
+//		o.setDate("2015-03-08");
 //		try {
 //			use = mapper.writeValueAsString(aaa);
 //			o.setJson(use);

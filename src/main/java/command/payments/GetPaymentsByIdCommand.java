@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import model.Payments;
 import connectionprovider.ConnectionProvider;
@@ -12,6 +14,7 @@ import connectionprovider.ConnectionProvider;
 public class GetPaymentsByIdCommand {
 	public Payments execute(int id) {
 		Payments p = new Payments();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection
@@ -21,7 +24,7 @@ public class GetPaymentsByIdCommand {
 			while (rs.next()) {
 				p.setId(rs.getInt("id"));
 				p.setNid(rs.getString("nid"));
-				p.setDate(rs.getDate("date"));
+				p.setDate(df.format(rs.getDate("date")));
 				p.setAmount(rs.getDouble("amount"));
 				p.changeToPAmount();
 			}

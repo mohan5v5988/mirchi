@@ -10,7 +10,22 @@
 	<h1>API Documentation</h1>
 	<p>
 		This is the Application used by the Business Man to keep track of his transactions,payments,customers,type of products and the amount due by the customers.
-		
 	</p>
+	<h1>Customer</h1>
+	<h2>1. Creating a Customer </h2>
+	<h3>@POST : "/rest/customer" </h3>
+	<p> This page will take the customer's information and store it to the database. The id of the customer which is called nid should be unique and it is a string. Once the nid is created you can't change the value.</p>
+	<h2>2. Updating a Customer </h2>
+	<h3>@POST : "/rest/customer/nid"</h3>
+	<p> This page will give you the list of customers nid in a drop down Box then you can select one of the nid and update the data. you can't change the nid value. </p>
+	<h2>3. Display all Customers </h2>
+	<h3>@GET : "/rest/customer" </h3>
+	<p> This page will get all the customers in the table and desplay them.</p>
+	<h3>@GET : "/rest/customer/get?nid='' " </h3>
+	<p> This page will get the information of the customer whose nid is called.</p>
+	<h3>@GET : "/rest/customer/get?name='' " </h3>
+	<p> This will get the information of the customer whose name is called.</p>
+
+
 </body>
 </html>

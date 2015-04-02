@@ -21,7 +21,7 @@ public class UpdateTranasactionsCommand {
 					.prepareStatement("UPDATE TRANASACTIONS SET nid=?, type=?, date=?, data=? WHERE tid=?");
 			stmt.setString(1, t.getNid());
 			stmt.setString(2, t.getType());
-			stmt.setDate(3, t.getDate());
+			stmt.setDate(3, java.sql.Date.valueOf(t.getDate()));
 			stmt.setObject(4, pgObject);
 			stmt.setInt(5, t.getTid());
 			stmt.executeUpdate();

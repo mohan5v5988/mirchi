@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import model.Tranasactions;
@@ -12,6 +14,7 @@ import connectionprovider.ConnectionProvider;
 
 public class GetTranasactionsByNidCommand {
 	public ArrayList<Tranasactions> execute(String nid) {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		ArrayList<Tranasactions> tarr = new ArrayList<Tranasactions>();
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -24,7 +27,7 @@ public class GetTranasactionsByNidCommand {
 				t.setTid(rs.getInt("tid"));
 				t.setNid(rs.getString("nid"));
 				t.setType(rs.getString("type"));
-				t.setDate(rs.getDate("date"));
+				t.setDate(df.format(rs.getDate("date")));
 				t.setJson(rs.getString("data"));
 				tarr.add(t);
 			}

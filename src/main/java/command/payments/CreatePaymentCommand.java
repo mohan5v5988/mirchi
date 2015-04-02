@@ -16,7 +16,7 @@ public class CreatePaymentCommand {
 			PreparedStatement stmt = connection
 					.prepareStatement("INSERT INTO PAYMENTS(nid, date, amount) VALUES(?, ?, ?) Returning id");
 			stmt.setString(1, p.getNid());
-			stmt.setDate(2, p.getDate());
+			stmt.setDate(2, java.sql.Date.valueOf(p.getDate()));
 			stmt.setDouble(3, p.dbAmount());
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -28,5 +28,12 @@ public class CreatePaymentCommand {
 			e.printStackTrace();
 		}
 		return "-1";
+	}
+	public static void main(String[] args) {
+		CreatePaymentCommand c = new CreatePaymentCommand();
+		Payments p = new Payments();
+		p.setId(0);
+		p.setNid("mv");
+		p.setAmount(500.0);
 	}
 }

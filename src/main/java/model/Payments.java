@@ -6,7 +6,7 @@ public class Payments {
 	private int id;
 	private String nid;
 	private Double amount;
-	private Date date = new Date(System.currentTimeMillis());
+	private String date;
 	public int getId() {
 		return id;
 	}
@@ -25,10 +25,10 @@ public class Payments {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	// to store the negative in db.

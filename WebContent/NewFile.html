@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-image: url(images/background.jpg); 
+div {
+  width:100%;
+  
+  text-align: center;
+  overflow: hidden;
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;}
+ 
+  
+}
+</style>
+</head>
+
+<h1>API Documentation</h1>
+
+<h2>1.  "rest/stories/"  -->></h2>
+@GET:<br>
+gets the function to return a list of all the DBObjects  i.e stories created so far<br>
+@POST:<br>
+Creates a New story object and saves it in the database<br>
+Parameters consumed : { title : "" , storytext : "" }<br>
+where both the parameters are set by the user. <br>
+<br>
+
+<h2>2.  "rest/stories/{title}"  -->></h2>
+@GET :<br>
+this rest service is used to get the single story information in order to continue that story.<br>
+<br>
+<br>
+
+<h2>3.  "rest/stories/search/{str}"-->></h2>
+@GET :<br>
+Search rest service created which can search by keyword in title field only..!!<br>
+<br>
+<br>
+
+<h2>4.  "rest/stories/addstory"  -->></h2>
+@POST :<br>
+this rest servie is used to update the existing story object in the database when the user adds the new storyline to the story.<br>
+Parameters consumed : { title : "" , storytext : "" }<br>
+Here the title is already set by getting the information from the rest service "rest/stories/{title}" <br>
+And the title is set by user to add on to the already existing story<br>
+<br>
+
+
+</body>
+</html>

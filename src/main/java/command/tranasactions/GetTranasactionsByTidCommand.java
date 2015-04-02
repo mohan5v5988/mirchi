@@ -5,12 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import model.Tranasactions;
 import connectionprovider.ConnectionProvider;
 
 public class GetTranasactionsByTidCommand {
 	public Tranasactions execute(int tid) {
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		Tranasactions t = new Tranasactions();
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -22,7 +25,7 @@ public class GetTranasactionsByTidCommand {
 				t.setTid(rs.getInt("tid"));
 				t.setNid(rs.getString("nid"));
 				t.setType(rs.getString("type"));
-				t.setDate(rs.getDate("date"));
+				t.setDate(df.format(rs.getDate("date")));
 				t.setJson(rs.getString("data"));
 			}
 		} catch (URISyntaxException e) {
