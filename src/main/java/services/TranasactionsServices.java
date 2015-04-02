@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 
 import model.Calculation;
 import model.HelpingMethods;
-import model.Payments;
 import model.Tranasactions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;

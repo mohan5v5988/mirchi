@@ -15,8 +15,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.server.mvc.Viewable;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -63,35 +61,12 @@ public class PaymentsServices {
 	// get by nid, date, id and "nid and date".
 	@GET
 	@Path("/get")
-//	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
+	@Produces({ MediaType.APPLICATION_JSON , MediaType.TEXT_PLAIN})
 	public Response getTransactions(@DefaultValue("nothing") @QueryParam("nid") String nid,
 							@DefaultValue("0") @QueryParam("id") int id,
 							@DefaultValue("1963-12-22") @QueryParam("date") String date) {
 		ArrayList<Payments> arr = new ArrayList<Payments>();
 		String paymentString = null;
-//		HashMap<String, Object> hm = new HashMap<String, Object>();
-//		if(nid.equals("nothing") && date.equals("1963-12-22") && id == 0) {
-//			return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
-//		} else if(nid.equals("nothing") ^ date.equals("1963-12-22")) {
-//			if(nid.equals("nothing")) {
-//				GetPaymentsByDateCommand command = new GetPaymentsByDateCommand();
-//				hm.put("Payments", command.execute(date));
-//			} else if(date.equals("1963-12-22")){
-//				GetPaymentsByNidCommand command = new GetPaymentsByNidCommand();
-//				hm.put("Payments", command.execute(nid));
-//			}
-//		} else if(id == 0) {
-//			GetPaymentsByNidandDateCommand command = new GetPaymentsByNidandDateCommand();
-//			hm.put("Payments", command.execute(nid, date));
-//		} else {
-//			GetPaymentsByIdCommand command = new GetPaymentsByIdCommand();
-//			arr.add(command.execute(id));
-//			hm.put("Payments", arr);
-//		}
-//		return Response.ok(new Viewable("/payments/DisplayP.jsp", hm)).build();
-		
-		
-		
 		if(nid.equals("nothing") && date.equals("1963-12-22") && id == 0) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
 		} else if(nid.equals("nothing") ^ date.equals("1963-12-22")) {
@@ -140,18 +115,9 @@ public class PaymentsServices {
 	// get with two dates and nid.
 	@GET
 	@Path("/date/{date1}/{date2}")
-//	@Produces({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getPaymentByDatesOrNid(@PathParam("date1") String date1,@PathParam("date2") String date2,
 			@DefaultValue("nothing") @QueryParam("nid") String nid) {
-//		HashMap<String, Object> hm = new HashMap<String, Object>();
-//		if(nid.equals("nothing")) {
-//			GetPaymentsBetweenDatesCommand command = new GetPaymentsBetweenDatesCommand();
-//			hm.put("Payments", command.execute(date1,date2));
-//		}else {
-//			GetPaymentsBetweenDatesAndNidCommand command = new GetPaymentsBetweenDatesAndNidCommand();
-//			hm.put("Payments", command.execute(date1,date2,nid));
-//		}
-//		return Response.ok(new Viewable("/payments/DisplayP.jsp", hm)).build();
 		if(nid.equals("nothing")) {
 			GetPaymentsBetweenDatesCommand command = new GetPaymentsBetweenDatesCommand();
 			String paymentString = null;
@@ -260,7 +226,6 @@ public class PaymentsServices {
 		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getDueAmount(@PathParam("nid") String nid) {
 			GetDueByNidCommand command = new GetDueByNidCommand();
-//			return Response.ok(new Viewable("/due/due.jsp", command.execute(nid))).build();
 			String dueString = null;
 			try {
 				dueString = mapper.writeValueAsString(command.execute(nid));

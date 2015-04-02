@@ -37,11 +37,11 @@ public class ListCustomerCommand {
 		}
 		return ret;
 	}
-	public static void main(String[] args) {
-		ListCustomerCommand c = new ListCustomerCommand();
-		ArrayList<Customer> a = c.execute();
-		for(Customer b : a) {
-			System.out.println(b);
-		}
-	}
+//	public static void main(String[] args) {
+//		ListCustomerCommand c = new ListCustomerCommand();
+//		ArrayList<Customer> a = c.execute();
+//		for(Customer b : a) {
+//			System.out.println(b);
+//		}
+//	}
 }

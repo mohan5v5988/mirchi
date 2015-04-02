@@ -14,10 +14,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.server.mvc.Viewable;
-
-import util.Constants;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -57,12 +53,6 @@ public class TypeServices {
 				@QueryParam("count") int count) {
 			ListTypeCommand command = new ListTypeCommand();
 			ArrayList<Type> list = command.execute();
-//			HashMap<String, Object> hm = new HashMap<String, Object>();
-//			hm.put("Type", list);
-//			return Response.ok(new Viewable("/type/alltypes.jsp", list)).build();
-//			hm.put(Constants.Pagination.DATA, list);
-//			hm.put(Constants.Pagination.OFFSET, offset);
-//			hm.put(Constants.Pagination.COUNT, count);
 			String typeString = null;
 			try {
 				typeString = mapper.writeValueAsString(list);
@@ -78,9 +68,6 @@ public class TypeServices {
 		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getType(@PathParam("type") String type) {
 			GetTypeCommand command = new GetTypeCommand();
-//			HashMap<String, Object> hm = new HashMap<String, Object>();
-//			hm.put("Type", command.execute(type));
-//			return Response.ok(new Viewable("/type/DisplyTbyID.jsp", hm)).build();
 			String typeString = null;
 			try {
 				typeString = mapper.writeValueAsString(command.execute(type));
@@ -111,8 +98,6 @@ public class TypeServices {
 				e.printStackTrace();
 				Response.status(500).build();
 			}
-//			return Response.ok(new Viewable("/type/type.jsp")).build();
-//			return Response.status(200).entity(i).build();
 			return Response.status(200).build();
 		}
 		

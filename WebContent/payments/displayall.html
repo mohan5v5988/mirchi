@@ -15,30 +15,29 @@ base_url = "http://localhost:8080/Mirchi/rest/payment/";
 				alert ("Please Enter a any field to get the Payments");
 			} else if ( (date1.value) && (date2.value) ) {
 				base_url = base_url + "date/" + date1.value + "/" + date2.value;
-				if ( (nid.value) ) { alert("Two date are entered"); base_url = base_url + "?nid=" + nid.value }
-				else                { alert("Two date and nid is entered"); }
+				if ( (nid.value) ) { base_url = base_url + "?nid=" + nid.value }
 			} else if( (!nid.value) ^ (!date1.value) ) {
 				base_url = base_url + "get?";
 				//will come when they enter either the nid or date 
 				if( (!nid.value) ) {
 					//when date is entered.
 					base_url = base_url + "date=" + date1.value;
-					alert("Date is enterted.");
+// 					alert("Date is enterted.");
 				} else if( (!date1.value) ){
 					//when nid is entered.
 					base_url = base_url + "nid=" + nid.value;
-					alert("nid is entered.");
+// 					alert("nid is entered.");
 				}
 			} else if( (!id.value) ) {
 				// when both are entered.
 				base_url = base_url + "get?nid=" + nid.value + "&date=" + date1.value;
-				alert("nid and date is entered");
+// 				alert("nid and date is entered");
 			} else {
 				base_url = base_url + "get?id=" + id.value;
 				// when id is entered.
-				alert("id is entered.");
+// 				alert("id is entered.");
 			}
-			alert(base_url);
+// 			alert(base_url);
 			$.getJSON(base_url, function(dat) {
 				console.log(dat);
 				$("div.type").html("");

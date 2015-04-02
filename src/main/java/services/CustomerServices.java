@@ -7,7 +7,6 @@ import java.util.HashMap;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,10 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.glassfish.jersey.server.mvc.Viewable;
-
-import util.Constants;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +33,9 @@ import model.Customer;
 @Path("customer")
 public class CustomerServices {
 	ObjectMapper mapper = new ObjectMapper();
+	
+	
+	// get metadata
 	@GET
 	@Path("metadata")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -61,12 +59,6 @@ public class CustomerServices {
 				@QueryParam("count") int count) {
 			ListCustomerCommand command = new ListCustomerCommand();
 			ArrayList<Customer> list = command.execute();
-//			HashMap<String, Object> hm = new HashMap<String, Object>();
-//			hm.put("Customer", list);
-//			return Response.ok(new Viewable("/customer/DisplayAllC.jsp", hm)).build();
-//			hm.put(Constants.Pagination.DATA, list);
-//			hm.put(Constants.Pagination.OFFSET, offset);
-//			hm.put(Constants.Pagination.COUNT, count);
 			String customerString = null;
 			try {
 				customerString = mapper.writeValueAsString(list);
@@ -79,21 +71,9 @@ public class CustomerServices {
 		// get customers by Id or name
 		@GET
 		@Path("/get")
-//		@Produces({ MediaType.APPLICATION_JSON })
+		@Produces({ MediaType.APPLICATION_JSON })
 		public Response getCustomers(@DefaultValue("nothing") @QueryParam("nid") String nid,
 								@DefaultValue("nothing") @QueryParam("name") String name) {
-			
-//			if(nid.equals("nothing") && name.equals("nothing")) {
-//				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
-//			} else if(name.equals("nothing")) {
-//				GetCustomerByIDCommand command = new GetCustomerByIDCommand();
-//				return Response.ok(new Viewable("/customer/DisplayC.jsp", command.execute(nid))).build();
-//			} else {
-//				GetCustomerByNameCommand command = new GetCustomerByNameCommand();
-//				return Response.ok(new Viewable("/customer/DisplayC.jsp", command.execute(name))).build();
-//			}
-//			
-			
 			if(nid.equals("nothing") && name.equals("nothing")) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Please enter any value to search.").build();
 			} else if(name.equals("nothing")) {

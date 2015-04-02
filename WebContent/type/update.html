@@ -16,7 +16,7 @@ $(document).ready(function(){
 	});
 	
 	$("#options").change(function(){
-		alert($("#options").val());
+// 		alert($("#options").val());
 		$.getJSON(meta_url,function(data) {
 			$.each(data,function(key, value) {
 				$("div.song_form").append("<br/>Please enter "+ key+ ":"+ "<input type='text' name='"+key+"'"+">");
