@@ -10,7 +10,7 @@ import model.Customer;
 import connectionprovider.ConnectionProvider;
 
 public class CreateCustomerCommand {
-	public String execute(Customer c,String username,String password) {
+	public String execute(Customer c) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 			PreparedStatement stmt = connection

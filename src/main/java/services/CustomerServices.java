@@ -113,7 +113,7 @@ public class CustomerServices {
 				Response.status(400).entity("could not read string").build();
 			}
 			try {
-				i = create.execute(c,"mohan","12345");
+				i = create.execute(c);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Response.status(500).build();
