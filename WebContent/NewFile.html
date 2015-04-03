@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-body {
-    background-image: url(images/background.jpg); 
-div {
-  width:100%;
-  
-  text-align: center;
-  overflow: hidden;
-}
-span {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;}
- 
-  
-}
-</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+base_url = "http://localhost:8080/Mirchi/rest/type";
+$(document).ready(function() {
+	$("#but").click(function() {
+		alert("but");
+		var count = $("#bags").val();
+		while(count--) {
+			$("#div").append("<input type='text' id='bagkg"+count+"'><br />");
+		}
+	});
+	$("#but2").click(function() {
+		alert("but2");
+// 		array();
+		hi();
+	});
+	function hi() {
+// 		var myObj = {};
+// 		myObj["nid"] = $("#nid").val();
+// 		myObj["type"] = $("#type").val();
+// 		myObj["date"] = $("#date").val();
+// 		myObj["coolie"] = $("#coolie").val();
+// 		myObj["railway"] = $("#railway").val();
+// 		myObj["rate"] = $("#rate").val();
+// 		myObj["vat"] = $("#vat").val();
+// 		myObj["bagkg"] = array();
+// 		var json = JSON.stringify(myObj);
+		var hi = {
+				"nid" : $("#nid").val(),
+				"type": $("#type").val(),
+				"date" :$("#date").val(),
+				"coolie" :$("#coolie").val(),
+				"railway" :$("#railway").val(),
+				"rate" :$("#rate").val(),
+				"vat" :$("#vat").val(),
+				"bagkg" :array()
+		};
+		var json = JSON.stringify(hi);
+		
+		
+		
+
+		alert(json);
+	}
+	function array() {
+		var arr = "[";
+		var count = $("#bags").val();
+		while(count--) {
+// 			alert($("#bagkg"+count).val());
+			arr = arr + $("#bagkg"+count).val();
+			if(count >0 ) {
+				arr = arr + ",";
+			}
+		}
+		arr = arr + "]";
+		alert(arr);
+		return arr;
+	}
+});
+</script>
 </head>
-
-<h1>API Documentation</h1>
-
-<h2>1.  "rest/stories/"  -->></h2>
-@GET:<br>
-gets the function to return a list of all the DBObjects  i.e stories created so far<br>
-@POST:<br>
-Creates a New story object and saves it in the database<br>
-Parameters consumed : { title : "" , storytext : "" }<br>
-where both the parameters are set by the user. <br>
-<br>
-
-<h2>2.  "rest/stories/{title}"  -->></h2>
-@GET :<br>
-this rest service is used to get the single story information in order to continue that story.<br>
-<br>
-<br>
-
-<h2>3.  "rest/stories/search/{str}"-->></h2>
-@GET :<br>
-Search rest service created which can search by keyword in title field only..!!<br>
-<br>
-<br>
-
-<h2>4.  "rest/stories/addstory"  -->></h2>
-@POST :<br>
-this rest servie is used to update the existing story object in the database when the user adds the new storyline to the story.<br>
-Parameters consumed : { title : "" , storytext : "" }<br>
-Here the title is already set by getting the information from the rest service "rest/stories/{title}" <br>
-And the title is set by user to add on to the already existing story<br>
-<br>
-
-
+<body>
+	Please Enter the NID : <input type="text" id="nid" ><br />
+	Please Enter the Type : <input type="text" id="type" ><br />
+	Please Enter the Rate : <input type="text" id="rate" ><br />
+	Please Enter the Date : <input type="text" id="date" ><br />
+	Please Enter the Coolie : <input type="text" id="coolie" ><br />
+	Please Enter the Railway : <input type="text" id="railway" ><br />
+	Please Enter the Vat : <input type="text" id="vat" ><br />
+	Please Enter the Bags : <input type="text" id="bags" >
+	<button id="but">click</button>
+	<div id="div">
+		
+	</div>
+	<button id="but2">click</button>
 </body>
 </html>

@@ -190,7 +190,7 @@ public class TranasactionsServices {
 		Tranasactions t = null;
 				String i = "";
 		try {
-			t = getTObjectFronJSON(payload);
+			t = HelpingMethods.getTObjectFronJSON(payload);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return Response.status(400).entity("could not read string").build();
@@ -213,7 +213,7 @@ public class TranasactionsServices {
 		UpdateTranasactionsCommand update = new UpdateTranasactionsCommand();
 		Tranasactions t = null;
 		try {
-			t = getTObjectFronJSON(payload);
+			t = HelpingMethods.getTObjectFronJSON(payload);
 			t.setTid(tid);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -242,27 +242,7 @@ public class TranasactionsServices {
 		return Response.status(200).build();
 	}
 	
-	Tranasactions getTObjectFronJSON(String json) throws Exception {
-		ArrayList<Double> d = new ArrayList<Double>();
-		Tranasactions t = new Tranasactions();
-		JSONObject myJSON = new JSONObject(json);
-		JSONArray jsonArray = myJSON.getJSONArray("bagkg");
-		if (jsonArray != null) { 
-		   int len = jsonArray.length();
-		   for (int m=0; m<len; m++){ 
-			   d.add(jsonArray.getDouble(m));
-		   } 
-		} 
-		Calculation c = new Calculation(myJSON.getInt("bags"),myJSON.getInt("coolie"),
-										myJSON.getInt("railway"),d,
-										myJSON.getDouble("rate"),myJSON.getDouble("vat"));
-		t.setTid(myJSON.getInt("tid"));
-		t.setNid(myJSON.getString("nid"));
-		t.setType(myJSON.getString("type"));
-		t.setDate(myJSON.getString("date"));
-		t.setJson(mapper.writeValueAsString(c));
-		return t;
-	}
+	
 	
 	ArrayList<HashMap<String, Object>> convertTarraytoString(ArrayList<Tranasactions> arr) throws Exception {
 		ArrayList<HashMap<String, Object>> harr = new ArrayList<HashMap<String, Object>>();
