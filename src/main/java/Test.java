@@ -12,7 +12,28 @@ import command.tranasactions.GetTranasactionsByNidCommand;
 import command.tranasactions.GetTranasactionsByNidandDateCommand;
 import command.tranasactions.GetTranasactionsByTidCommand;
 
+
 public class Test {
+	
+//	public static void main(String[] args) {
+//		SendGrid sendgrid = new SendGrid(APICredentials.sendgrid_username , APICredentials.sendgrid_password);
+//
+//		SendGrid.Email email = new SendGrid.Email();
+//		email.addTo("mohan5v5988@gmail.com");
+//		email.setFrom("mohan5v5988@icloud.com");
+//		email.setSubject("Hello World");
+//		email.setText("My first email through SendGrid");
+//
+//		try {
+//		  SendGrid.Response response = sendgrid.send(email);
+//		  System.out.println(response.getMessage() +"  "+ response.getStatus());
+//		} catch (SendGridException e) {
+//		  System.out.println(e);
+//		}
+//	}
+	
+	
+//============================================================================================================
 	public static void main(String[] args) {
 		
 		
